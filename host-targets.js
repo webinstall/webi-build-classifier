@@ -33,6 +33,7 @@ HostTargets.WATERFALL = {
     // prefer 'none' because dep can be crazy otherwise
     gnu: ['none', 'gnu'],
     libc: ['none', 'libc'],
+    musl: ['none', 'musl'],
     // prefer 'msvc' because the install is automated
     // (TODO does this work for x86_64 on aarch64?)
     msvc: ['msvc', 'none', 'gnu'],
