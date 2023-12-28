@@ -72,6 +72,7 @@ HostTargets.TERMS = {
   Android: T.ANDROID,
   Linux: T.LINUX,
   MINGW: T.LINUX,
+  CYGWIN: T.LINUX,
   Darwin: T.DARWIN,
   Windows: T.WINDOWS,
   DragonFly: { os: 'dragonfly', vendor: 'unknown' },
@@ -94,6 +95,7 @@ HostTargets.TERMS = {
   evbarm: {},
   i86pc: { arch: 'x86' },
   i386: { arch: 'x86' },
+  i686: { arch: 'x86' },
   // libc
   gnu: { libc: 'gnu' },
   GNU: { libc: 'gnu' },
@@ -112,6 +114,8 @@ HostTargets._MATCHERS = {
   // el = enterprise linux
   // fc = fedora core
   // amzn = amazon
+  // ex: CYGWIN_NT-10.0-WOW/3.3.5(0.341/5/3)
+  cygwin: /^CYGWIN(_NT)?/,
   distroRelease: /^(android|amzn|el|fc)\d+$/,
   // ex: MINGW64_NT-10.0-19045/3.3.6-341.x86_64
   mingw: /^MINGW(64_NT)?/,
@@ -143,6 +147,11 @@ HostTargets.termsToTarget = function (target, terms) {
 
     if (term.includes('MINGW')) {
       Object.assign(target, HostTargets.TERMS.MINGW);
+      continue;
+    }
+
+    if (term.includes('CYGWIN')) {
+      Object.assign(target, HostTargets.TERMS.CYGWIN);
       continue;
     }
 
@@ -185,8 +194,26 @@ function upsertHints(target, ua, terms, hints) {
     }
     if (target[key] !== hints[key]) {
       let msg = `'${key}' already set to '${target[key]}', not updated to '${hints[key]}'`;
-      target.errors.push({ [key]: hints[key], message: msg, terms: terms });
-      throw new Error(`${msg} for '${ua}' / '${terms}'`);
+      let ignore = false;
+      let targetIsLinuxy =
+        target[key] === 'gnu' ||
+        target[key] === 'bionic' ||
+        target[key] === 'musl';
+      if (targetIsLinuxy) {
+        if (hints[key] === 'libc') {
+          // likely an old webi script with bad generic categorization
+          ignore = true;
+        } else if (hints[key] === 'musl') {
+          // musl can be installed on a GNU system
+          target.libs = [target.libc, 'musl'];
+          ignore = true;
+        }
+      }
+      if (!ignore) {
+        target.errors.push({ [key]: hints[key], message: msg, terms: terms });
+        throw new Error(`${msg} for '${terms}'`);
+        throw new Error(`${msg} for '${ua}' / '${terms}'`);
+      }
     }
   }
 }
@@ -214,8 +241,14 @@ function upsertAndroidTerms(target, terms) {
     target.libc = 'bionic';
   }
   if (target.libc !== 'bionic') {
-    let msg = `Android 'libc' already set to '${target.libc}', but should be 'bionic'`;
-    target.errors.push({ libc: 'bionic', message: msg, terms: terms });
-    throw new Error(`${msg} for '${terms}'`);
+    if (target.libc === 'musl') {
+      // musl can be installed on Android
+      target.libcs = ['bionic', 'musl'];
+      target.libc = 'musl';
+    } else {
+      let msg = `Android 'libc' already set to '${target.libc}', but should be 'bionic'`;
+      target.errors.push({ libc: 'bionic', message: msg, terms: terms });
+      throw new Error(`${msg} for '${terms}'`);
+    }
   }
 }
