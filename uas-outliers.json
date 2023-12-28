@@ -1,4 +1,17 @@
 {
   "Wget/1.14 (linux-gnu)": 1,
-  "Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.19045; zh-TW) PowerShell/7.4.0": 2
+  "Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.19045; zh-TW) PowerShell/7.4.0": 2,
+"curl Linux redacted-name 6.5.0-10008-tuxedo #8 SMP PREEMPT_DYNAMIC Mon Nov  6 14:48:30 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux": 1,
+    "curl Linux redacted-name 5.14.21-150500.55.36-default #1 SMP PREEMPT_DYNAMIC Tue Oct 31 08:37:43 UTC 2023 (e7a2e23) x86_64 x86_64 x86_64 GNU/Linux": 1,
+    "curl Linux redacted-name 6.2.0-37-generic #38~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov  2 18:01:13 UTC 2 x86_64 x86_64 x86_64 GNU/Linux": 1,
+    "curl Linux redacted-name 6.2.0-37-generic #38~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov  2 18:01:13 UTC 2 x86_64 x86_64 x86_64 GNU/Linux": 1,
+    "curl Linux redacted-name.eu-central-1.compute.internal 3.10.0-1062.12.1.el7.x86_64 #1 SMP Tue Feb 4 23:02:59 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux": 1,
+    "curl Darwin redacted-name 22.6.0 Darwin Kernel Version 22.6.0: Wed Oct  4 21:25:26 PDT 2023; root:xnu-8796.141.3.701.17~4/RELEASE_X86_64 x86_64": 1,
+    "curl Linux redacted-name 5.4.0-152-generic #169-Ubuntu SMP Tue Jun 6 22:23:09 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux": 1,
+    "webi/curl+wget Linux localhost 5.4.147-qgki-24218971-abF926BXXU1CVF1 #1 SMP PREEMPT Thu Jun 16 21:18:05 KST 2022 aarch64 GNU/Linux/unknown Linux localhost 5.4.147-qgki-24218971-abF926BXXU1CVF1 #1 SMP PREEMPT Thu Jun 16 21:18:05 KST 2022 aarch64 GNU/Linux/Linux localhost 5.4.147-qgki-24218971-abF926BXXU1CVF1 #1 SMP PREEMPT Thu Jun 16 21:18:05 KST 2022 aarch64 GNU/Linux gnu": 1,
+    "curl Linux localhost 5.4.147-qgki-24218971-abF926BXXU1CVF1 #1 SMP PREEMPT Thu Jun 16 21:18:05 KST 2022 aarch64 GNU/Linux/Linux localhost 5.4.147-qgki-24218971-abF926BXXU1CVF1 #1 SMP PREEMPT Thu Jun 16 21:18:05 KST 2022 aarch64 GNU/Linux Linux localhost 5.4.147-qgki-24218971-abF926BXXU1CVF1 #1 SMP PREEMPT Thu Jun 16 21:18:05 KST 2022 aarch64 GNU/Linux/unknown gnu": 8,
+    "curl Linux redacted-name 5.15.0-1035-aws #39~20.04.1-Ubuntu SMP Wed Apr 19 15:34:33 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux": 1,
+    "curl Linux redacted-name 5.15.0-91-generic #101~20.04.1-Ubuntu SMP Thu Nov 16 14:22:28 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux": 1,
+    "curl Linux redacted-name 5.19.0-35-generic #36~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Feb 17 15:17:25 UTC 2 x86_64 x86_64 x86_64 GNU/Linux": 1,
+    "curl Linux redacted-name 4.15.0-74-generic #84-Ubuntu SMP Thu Dec 19 08:06:28 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux": 1
 }
