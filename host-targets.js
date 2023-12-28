@@ -1,5 +1,10 @@
 'use strict';
 
+/** @typedef {import('./types.js').OsString} OsString */
+/** @typedef {import('./types.js').LibcString} LibcString */
+/** @typedef {import('./types.js').ArchString} ArchString */
+/** @typedef {import('./types.js').TargetTriplet} TargetTriplet */
+
 var HostTargets = module.exports;
 
 let reVersionOnly = /^[\d\.]+(-RELEASE)?$/;
@@ -112,6 +117,9 @@ HostTargets._MATCHERS = {
   mingw: /^MINGW(64_NT)?/,
 };
 
+/**
+ * @param {Object.<"os"|"arch"|"libc", String>} target
+ */
 HostTargets.termsToTarget = function (target, terms) {
   let bogoTerms = [];
 

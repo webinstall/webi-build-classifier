@@ -9,6 +9,11 @@
  * @prop {Array<String>} TERMS_EXTS_SOURCE
  */
 
+/** @typedef {import('./types.js').OsString} OsString */
+/** @typedef {import('./types.js').LibcString} LibcString */
+/** @typedef {import('./types.js').ArchString} ArchString */
+/** @typedef {import('./types.js').TargetTriplet} TargetTriplet */
+
 /** @type {Triplet} */
 //@ts-ignore
 var Triplet = ('object' === typeof module && exports) || {};
