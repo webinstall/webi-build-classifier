@@ -178,7 +178,7 @@ function upsertHints(target, ua, terms, hints) {
     if (target[key] !== hints[key]) {
       let msg = `'${key}' already set to '${target[key]}', not updated to '${hints[key]}'`;
       target.errors.push({ [key]: hints[key], message: msg, terms: terms });
-      throw new Error(`${msg} for '${terms}'`);
+      throw new Error(`${msg} for '${ua}' / '${terms}'`);
     }
   }
 }
