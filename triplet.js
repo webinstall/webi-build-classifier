@@ -18,44 +18,49 @@ var Triplet = ('object' === typeof module && exports) || {};
 
   Triplet.TERMS_CHANNEL = ['master', 'nightly'];
   Triplet.TERMS_CHECKSUM = [
-    'MD5SUMS',
     'B3SUMS',
+    'checksum',
+    'MD5SUMS',
     'SHA1SUMS',
     'SHA256SUMS',
     'SHA512SUMS',
-    'checksum',
   ];
   Triplet.TERMS_NON_BUILD = [
-    /(\b|_)(source)(\b|_)/,
-    /(\b|_)(vendor)(\b|_)/, // TODO rclone go vendor
-    /(\b|_)(src)(\b|_)/,
-    /(\b|_)(setup)(\b|_)/,
-    /(\b|_)(symbols)(\b|_)/,
-    /(\b|_)(bootstrap)(\b|_)/,
+    'bootstrap',
+    'debug', // TODO dashd
+    'setup',
+    'source',
+    'src',
+    'symbols',
     // a build, but not one you'd use given the alternative
-    /(\b|_)(unsigned)(\b|_)/, // TODO dashd
-    /(\b|_)(debug)(\b|_)/, // TODO dashd
+    'unsigned', // TODO dashd
+    'vendor', // TODO rclone go vendor
   ];
+  Triplet._RE_TERMS_NON_BUILD = [];
+  for (let term of Triplet.TERMS_NON_BUILD) {
+    let re = new RegExp(`(\\b|_)(${term})(\\b|_)`);
+    Triplet._RE_TERMS_NON_BUILD.push(re);
+  }
   Triplet.TERMS_EXTS_NON_BUILD = [
     '.1',
+    '.asc',
     '.b3',
+    '.json',
+    '.md5',
+    '.pem',
+    '.sbom',
     '.sha256',
     '.sha256sum',
     '.sha512',
-    '.md5',
-    '.txt',
     '.sig',
-    '.pem',
-    '.sbom',
-    '.json',
-    '.asc',
+    '.txt',
     // no android
     '.apk',
-    // windows something... not sure
-    '.msixbundle',
     // we can't use these yet
     '.deb',
     '.rpm',
+    // windows something... not sure
+    '.msixbundle',
   ];
 
   // many assets are bare - we'd have to check if any contain a '.'
@@ -95,9 +100,9 @@ var Triplet = ('object' === typeof module && exports) || {};
 
   Triplet.TERMS_EXTS_ZIP = [
     '.bz2', // -j, --bzip2 (for completeness, not used)
-    '.zip', // (auto on BSD tar on Windows and macOS)
     '.gz', // -z, --gzip
     '.xz', // -J, --xz
+    '.zip', // (auto on BSD tar on Windows and macOS)
     // neither macos nor linux have zstd by default
     '.zst', // --zstd
     '.7z', // --lz4, --lzma, --lzop
@@ -110,6 +115,7 @@ var Triplet = ('object' === typeof module && exports) || {};
     '.xz',
     '.zst',
     '.zip',
+    // .tar should come *after* extensions that use it
     '.tar',
     '.7z',
   ];
@@ -444,8 +450,8 @@ var Triplet = ('object' === typeof module && exports) || {};
       }
     }
 
-    for (let term of Triplet.TERMS_NON_BUILD) {
-      if (term.test(build.download)) {
+    for (let re of Triplet._RE_TERMS_NON_BUILD) {
+      if (re.test(build.download)) {
         return false;
       }
     }
@@ -919,6 +925,11 @@ var Triplet = ('object' === typeof module && exports) || {};
     return pkg;
   };
 
+  /**
+   * Determines the package type from the file name, accounting for ambiguous extensions.
+   * @param {String} filename
+   * @returns {String} - ex: '.zip', '.app.zip', '.tar.gz', '...'
+   */
   Triplet.filenameToPackageType = function (filename) {
     let _filename = filename;
     let pkg = '';
