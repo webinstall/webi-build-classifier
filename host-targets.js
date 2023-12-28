@@ -87,8 +87,8 @@ HostTargets.TERMS = {
   earmv6hf: { arch: 'armhf' },
   arm: {},
   evbarm: {},
-  i86pc: { arch: 'i386' },
-  i386: { arch: 'i386' },
+  i86pc: { arch: 'x86' },
+  i386: { arch: 'x86' },
   // libc
   gnu: { libc: 'gnu' },
   GNU: { libc: 'gnu' },
