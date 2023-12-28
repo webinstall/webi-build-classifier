@@ -42,13 +42,13 @@ let stablePrefixRe = new RegExp(
 
 /**
  * Get the most useful recent version tags from unsorted lexical versions
- * @param {Array<String>} descVersions - sorted from greatest to least
+ * @param {Array<String>} lexvers - sorted from greatest to least
  */
-Lexver.toTags = function (versions) {
-  versions.sort();
-  versions.reverse();
+Lexver.toTags = function (lexvers) {
+  lexvers.sort();
+  lexvers.reverse();
 
-  return Lexver.sortedToTags(versions);
+  return Lexver.sortedToTags(lexvers);
 };
 
 /**
