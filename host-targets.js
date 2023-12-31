@@ -211,7 +211,6 @@ function upsertHints(target, ua, terms, hints) {
       }
       if (!ignore) {
         target.errors.push({ [key]: hints[key], message: msg, terms: terms });
-        throw new Error(`${msg} for '${terms}'`);
         throw new Error(`${msg} for '${ua}' / '${terms}'`);
       }
     }
