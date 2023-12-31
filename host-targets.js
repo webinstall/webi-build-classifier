@@ -107,6 +107,13 @@ HostTargets.TERMS = {
   // meta, test, misc
   test: {},
 };
+{
+  let keys = Object.keys(HostTargets.TERMS);
+  for (let key of keys) {
+    let lkey = key.toLowerCase();
+    HostTargets.TERMS[lkey] = HostTargets.TERMS[key];
+  }
+}
 
 HostTargets._MATCHERS = {
   // seems to be some sort of android-specific kernel build hash
@@ -130,7 +137,8 @@ HostTargets.termsToTarget = function (target, terms) {
   Object.assign(target, { errors: [] });
 
   for (let term of terms) {
-    let hints = HostTargets.TERMS[term];
+    let lterm = term.toLowerCase();
+    let hints = HostTargets.TERMS[lterm];
     if (hints) {
       upsertHints(target, terms, term, hints);
       continue;
