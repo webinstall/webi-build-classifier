@@ -1,0 +1,17 @@
+{
+  "name": "build-classifier",
+  "version": "0.9.0",
+  "description": "Determine Host Target Triplet (Arch, Libc, OS, Vendor) from a filenames / download URL and uname / User-Agent strings.",
+  "main": "index.js",
+  "scripts": {
+    "fmt": "npm run prettier",
+    "lint": "npm run jshint",
+    "test": "node lexver-test.js",
+    "----": "------------------------------------",
+    "jshint": "npx -p jshint@2.x -- jshint -c ./.jshintrc --exclude 'node_modules/**/*' *.js",
+    "prettier": "npx -p prettier@3.x -- prettier -w '**/*.{js,md,html}'"
+  },
+  "keywords": [],
+  "author": "AJ ONeal <aj@therootcompany.com> (https://therootcompany.com/)",
+  "license": "SEE LICENSE IN LICENSE"
+}
