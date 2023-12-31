@@ -384,7 +384,6 @@ var Triplet = ('object' === typeof module && exports) || {};
   tpm['android'] = {
     os: 'linux',
     android: true,
-    arch: 'aarch64',
     libc: 'bionic',
   };
   tpm['androideabi'] = {
@@ -428,6 +427,7 @@ var Triplet = ('object' === typeof module && exports) || {};
 
       // linux
       linux: T.LINUX_X86_64,
+      android: T.AARCH64,
 
       // arm
       arm: T.ARMHF,
