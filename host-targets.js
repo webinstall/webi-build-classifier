@@ -130,6 +130,7 @@ HostTargets._MATCHERS = {
 
 /**
  * @param {Object.<"os"|"arch"|"libc", String>} target
+ * @param {Array<String>} terms
  */
 HostTargets.termsToTarget = function (target, terms) {
   let bogoTerms = [];
