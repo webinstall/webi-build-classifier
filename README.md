@@ -10,7 +10,8 @@ Also compares versions lexicographically.
   "arch": "aarch64",
   "os": "linux",
   "libc": "none",
-  "vendor": "unknown"
+  "vendor": "unknown",
+  "unknownTerms": ["infra"]
 }
 ```
 

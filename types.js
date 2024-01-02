@@ -24,5 +24,6 @@ module.exports._types = true;
  * @prop {ArchString} arch
  * @prop {LibcString} libc
  * @prop {VendorString} [vendor]
+ * @prop {Array<String>} [unknownTerms]
  * @prop {Boolean} [android] - for intermediary representation
  */
