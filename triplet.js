@@ -678,14 +678,14 @@ var Triplet = ('object' === typeof module && exports) || {};
       vendor: build.vendor || '',
       libc: build.libc || '',
       //ext: build.ext || '',
+      unknownTerms: [],
     });
 
     for (let term of terms) {
       let knownMatch = Triplet.TERMS_PRIMARY_MAP[term];
       if (!knownMatch) {
-        let msg = `${proj.name}: unrecognized term '${term}' in '${terms}'`;
-        let err = new Error(msg);
-        throw err;
+        target.unknownTerms.push(term);
+        continue;
       }
 
       //console.log('dbg-known:', term, knownMatch);
