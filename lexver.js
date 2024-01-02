@@ -187,7 +187,7 @@ Lexver.parsePrefix = function (version) {
  * Ex: use '0001.0003' to find previous, stable, default, beta, and next
  * @param {Array<String>} versions - sorted lexical versions
  * @param {String} prefix - the string to match
- * @returns {String}
+ * @returns {Object.<String, String>}
  */
 Lexver.matchSorted = function (versions, prefix) {
   let matches = [];
