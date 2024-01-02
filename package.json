@@ -1,6 +1,6 @@
 {
   "name": "build-classifier",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Determine Host Target Triplet (Arch, Libc, OS, Vendor) from a filenames / download URL and uname / User-Agent strings.",
   "main": "index.js",
   "scripts": {
