@@ -747,19 +747,23 @@ var Triplet = ('object' === typeof module && exports) || {};
       let err = new Error(
         `${os}: could not match ${proj.name} ${build.download} to os target`,
       );
-      err._projName = proj.name;
-      err._terms = terms;
-      err._build = build;
-      throw new Error(err);
+      Object.assign(err, {
+        _projName: proj.name,
+        _terms: terms,
+        _build: build,
+      });
+      throw err;
     }
     if (!target.arch) {
       let err = new Error(
         `${arch}: could not match ${proj.name} ${build.download} to arch target`,
       );
-      err._projName = proj.name;
-      err._terms = terms;
-      err._build = build;
-      throw new Error(err);
+      Object.assign(err, {
+        _projName: proj.name,
+        _terms: terms,
+        _build: build,
+      });
+      throw err;
     }
 
     return target;
