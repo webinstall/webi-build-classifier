@@ -90,6 +90,7 @@ HostTargets.TERMS = {
   arm64: { arch: 'aarch64' },
   aarch64: { arch: 'aarch64' },
   armv7l: { arch: 'armv7' },
+  armv6l: { arch: 'armv6' },
   earmv6hf: { arch: 'armhf' },
   arm: {},
   evbarm: {},
