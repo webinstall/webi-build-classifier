@@ -725,6 +725,16 @@ var Triplet = ('object' === typeof module && exports) || {};
       }
     }
 
+    // See <https://github.com/webinstall/webi-build-classifier/pull/11>
+    if (target.os === 'linux') {
+      if (target.libc === 'none') {
+        let isGnuOnly = terms.includes('gnu');
+        if (isGnuOnly) {
+          target.libc = 'gnu';
+        }
+      }
+    }
+
     // for (let ext of Triplet.TERMS_EXTS_BUILD) {
     //   if (filename.endsWith(ext)) {
     //     if (!target.ext) {
