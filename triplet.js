@@ -195,7 +195,8 @@ var Triplet = ('object' === typeof module && exports) || {};
     SOLARIS: { os: 'solaris' },
 
     // Any
-    POSIX: { os: 'posix_2017', arch: 'ANYARCH', vendor: 'unknown' },
+    POSIX_2017: { os: 'posix_2017', arch: 'ANYARCH', vendor: 'unknown' },
+    POSIX_2024: { os: 'posix_2024', arch: 'ANYARCH', vendor: 'unknown' },
     WASI: { os: 'wasi', vendor: 'unknown' },
 
     // Arches
@@ -269,8 +270,9 @@ var Triplet = ('object' === typeof module && exports) || {};
   tpm['solaris'] = T.SOLARIS;
   tpm['solaris_11'] = T.SOLARIS;
   // System Interfaces (POSIX, WASI)
-  tpm['posix'] = T.POSIX;
-  tpm['posix_2017'] = T.POSIX;
+  tpm['posix'] = T.POSIX_2017;
+  tpm['posix_2017'] = T.POSIX_2017;
+  tpm['posix_2024'] = T.POSIX_2024;
   tpm['wasi'] = T.WASI;
 
   // OS + Arch

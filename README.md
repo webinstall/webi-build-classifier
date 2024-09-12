@@ -60,6 +60,7 @@ Also compares versions lexicographically.
     "",
     "ANYOS",
     "posix_2017",
+    "posix_2024",
     "aix",
     "android",
     "darwin",

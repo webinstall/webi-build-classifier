@@ -3,7 +3,7 @@
 module.exports._types = true;
 
 /**
- * @typedef {""|"ANYOS"|"posix_2017"|"aix"|"android"|"darwin"|"dragonfly"|"freebsd"|"illumos"|"linux"|"netbsd"|"openbsd"|"plan9"|"solaris"|"sunos"|"wasi"|"windows"} OsString
+ * @typedef {""|"ANYOS"|"posix_2024"|"posix_2017"|"aix"|"android"|"darwin"|"dragonfly"|"freebsd"|"illumos"|"linux"|"netbsd"|"openbsd"|"plan9"|"solaris"|"sunos"|"wasi"|"windows"} OsString
  */
 
 /**
