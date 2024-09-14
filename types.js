@@ -11,7 +11,7 @@ module.exports._types = true;
  */
 
 /**
- * @typedef {""|"ANYARCH"|"POSIX"|"aarch64"|"armel"|"armhf"|"armv6"|"armv7"|"armv7a"|"loong64"|"mips"|"mips64"|"mips64el"|"mips64r6"|"mips64r6el"|"mipsel"|"mipsr6"|"mipsr6el"|"ppc"|"ppc64"|"ppc64le"|"riscv64"|"s390x"|"wasm32"|"x86"|"x86_64"|"x86_64_v2"|"x86_64_v3"} ArchString
+ * @typedef {""|"ANYARCH"|"POSIX"|"aarch64"|"armel"|"armhf"|"armv6"|"armv7"|"armv7a"|"loong64"|"mips"|"mips64"|"mips64el"|"mips64r6"|"mips64r6el"|"mipsel"|"mipsr6"|"mipsr6el"|"ppc"|"ppc64"|"ppc64le"|"riscv64"|"s390x"|"wasm32"|"x86"|"x86_64"|"x86_64_v2"|"x86_64_v3"|"x86_64_v4"|"x86_64_rocm"} ArchString
  */
 
 /**

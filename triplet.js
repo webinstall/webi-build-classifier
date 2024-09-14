@@ -203,6 +203,8 @@ var Triplet = ('object' === typeof module && exports) || {};
     X86_64: { arch: 'x86_64' },
     X86_64_V2: { arch: 'x86_64_v2' },
     X86_64_V3: { arch: 'x86_64_v3' },
+    X86_64_V4: { arch: 'x86_64_v4' },
+    AMD64_ROCM: { arch: 'x86_64_rocm' },
     AARCH64: { arch: 'aarch64' },
     X86: { arch: 'x86' },
     ARMV7A: { arch: 'armv7a' },
@@ -293,10 +295,13 @@ var Triplet = ('object' === typeof module && exports) || {};
   tpm['x86_64_v1'] = T.X86_64;
   tpm['x86_64_v2'] = T.X86_64_V2;
   tpm['x86_64_v3'] = T.X86_64_V3;
+  tpm['x86_64_v4'] = T.X86_64_V4;
   tpm['amd64'] = T.X86_64;
   tpm['amd64_v1'] = T.X86_64;
   tpm['amd64_v2'] = T.X86_64_V2;
   tpm['amd64_v3'] = T.X86_64_V3;
+  tpm['amd64_v4'] = T.X86_64_V4;
+  tpm['amd64_rocm'] = T.AMD64_ROCM;
   tpm['x64'] = T.X86_64;
   tpm['aarch64'] = T.AARCH64;
   tpm['arm64'] = T.AARCH64;

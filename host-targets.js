@@ -13,24 +13,31 @@ let reLeadingVer = /^\d([\d\.\-\+_])+/;
 //   gki = Generic Kernel Image
 //   qgki = Qualcomm Generic Kernel Image
 
+let X86_64 = {
+  x86_64_rocm: ['x86_64_rocm', 'x86_64_v4', 'x86_64_v3', 'x86_64_v2', 'x86_64'],
+  x86_64_v4: ['x86_64_v4', 'x86_64_v3', 'x86_64_v2', 'x86_64'],
+  x86_64_v3: ['x86_64_v3', 'x86_64_v2', 'x86_64', 'x86'],
+  x86_64_v2: ['x86_64_v2', 'x86_64', 'x86'],
+  x86_64: ['x86_64', 'x86'],
+};
+
 HostTargets.WATERFALL = {
   darwin: { aarch64: ['aarch64', 'x86_64'] },
-  windows: {
-    aarch64: ['aarch64', 'x86_64'],
-    x86_64_v3: ['x86_64_v3', 'x86_64_v2', 'x86_64', 'x86'],
-    x86_64_v2: ['x86_64_v2', 'x86_64', 'x86'],
-  },
-  linux: {
-    // NOTE: the libc:armhf will need to be installed
-    aarch64: ['aarch64', 'armv7a', 'armv7', 'armhf'],
-    x86_64_v3: ['x86_64_v3', 'x86_64_v2', 'x86_64', 'x86'],
-    x86_64_v2: ['x86_64_v2', 'x86_64', 'x86'],
-  },
-  ANYOS: {
+  windows: Object.assign(
+    {
+      aarch64: ['aarch64', 'x86_64'],
+    },
+    X86_64,
+  ),
+  linux: Object.assign(
+    {
+      // NOTE: the libc:armhf will need to be installed
+      aarch64: ['aarch64', 'armv7a', 'armv7', 'armhf'],
+    },
+    X86_64,
+  ),
+  ANYOS: Object.assign({}, X86_64, {
     // arches
-    x86_64_v3: ['x86_64_v3', 'x86_64_v2', 'x86_64'],
-    x86_64_v2: ['x86_64_v2', 'x86_64'],
-    x86_64: ['x86_64', 'x86'],
     armv7: ['armv7a', 'armv7', 'armhf', 'armv6', 'armel', 'armv5'],
     armv6: ['armv6', 'armel', 'armv5'],
     armv5: ['armv5', 'armel'],
@@ -45,7 +52,7 @@ HostTargets.WATERFALL = {
     // prefer 'bionic' because it's built-in
     // (TODO test to see if statically-compiled linux bins work)
     bionic: ['bionic', 'none'],
-  },
+  }),
 };
 
 // The Terms

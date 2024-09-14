@@ -54,7 +54,9 @@ Also compares versions lexicographically.
     "x86",
     "x86_64",
     "x86_64_v2",
-    "x86_64_v3"
+    "x86_64_v3",
+    "x86_64_v4",
+    "x86_64_rocm"
   ],
   "oses": [
     "",
