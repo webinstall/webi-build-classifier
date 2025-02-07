@@ -28,7 +28,7 @@
     "jshint": "npx -p jshint@2.x -- jshint -c ./.jshintrc --exclude 'node_modules/**/*' *.js",
     "prettier": "npx -p prettier@3.x -- prettier -w '**/*.{js,md,html}'",
     "reexport-types": "npx -p jswt@2.x -- reexport",
-    "tsc": "! npx -p typescript@5.x -- tsc -p ./jsconfig.json | grep '\\.js(\\d\\+,\\d\\+): error' | grep -v '\\<node_modules/'"
+    "tsc": "! npx -p typescript@5.x -- tsc -p ./jsconfig.json | grep '\\.js([0-9]\\+,[0-9]\\+): error' | grep -v '\\<node_modules/'"
   },
   "keywords": [],
   "author": "AJ ONeal <aj@therootcompany.com> (https://therootcompany.com/)",
