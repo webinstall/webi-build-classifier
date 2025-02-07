@@ -1,9 +1,9 @@
 'use strict';
 
-let Path = require('node:path');
-let Fs = require('node:fs/promises');
+import Path from 'node:path';
+import Fs from 'node:fs/promises';
 
-let Lexver = require('./lexver.js');
+import Lexver from './lexver.js';
 
 async function main() {
   let matchVer = process.argv[2];
@@ -14,7 +14,9 @@ async function main() {
 
   let versions;
   {
-    let filepath = Path.join(__dirname, 'versions.txt');
+    let modulePath = import.meta.url.slice('file://'.length);
+    let moduleDir = Path.dirname(modulePath);
+    let filepath = Path.join(moduleDir, 'versions.txt');
     let versionsTxt = await Fs.readFile(filepath, 'utf-8');
     versionsTxt = versionsTxt.trim();
     versions = versionsTxt.split('\n');

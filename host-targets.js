@@ -1,11 +1,10 @@
-'use strict';
-
 /** @typedef {import('./types.js').OsString} OsString */
 /** @typedef {import('./types.js').LibcString} LibcString */
 /** @typedef {import('./types.js').ArchString} ArchString */
 /** @typedef {import('./types.js').TargetTriplet} TargetTriplet */
+/** @typedef {import('./types.js').TargetMatcher} TargetMatcher */
 
-var HostTargets = module.exports;
+let HostTargets = {};
 
 let reVersionOnly = /^[\d\.]+(-RELEASE)?$/;
 let reLeadingVer = /^\d([\d\.\-\+_])+/;
@@ -64,6 +63,7 @@ let T = {
 };
 
 // OS, Arch, Libc
+/** @type {Object.<String, import('./types.js').TargetMatcher>}  */
 HostTargets.TERMS = {
   // agent
   webi: {},
@@ -137,19 +137,21 @@ HostTargets._MATCHERS = {
 };
 
 /**
- * @param {Object.<"os"|"arch"|"libc", String>} target
+ * @param {Object.<"os"|"arch"|"libc", String>} targetIsh
  * @param {Array<String>} terms
  */
-HostTargets.termsToTarget = function (target, terms) {
+HostTargets.termsToTarget = function (targetIsh, terms) {
   let bogoTerms = [];
 
-  Object.assign(target, { errors: [] });
+  let target = Object.assign(targetIsh, { errors: [] });
 
   for (let term of terms) {
     let lterm = term.toLowerCase();
     let hints = HostTargets.TERMS[lterm];
     if (hints) {
-      upsertHints(target, terms, term, hints);
+      let debugUa = terms.join(',');
+      let debugTerms = [term];
+      upsertHints(target, debugUa, debugTerms, hints);
       continue;
     }
 
@@ -199,15 +201,26 @@ HostTargets.termsToTarget = function (target, terms) {
   return bogoTerms;
 };
 
+/**
+ * @param {TargetTriplet} target
+ * @param {String} ua
+ * @param {Array<String>} terms
+ * @param {TargetMatcher} hints
+ */
 function upsertHints(target, ua, terms, hints) {
   if (!hints) {
     throw new Error("[SANITY FAIL] 'hints' not provided");
   }
 
+  // TODO maybe use utility type 'keyof'
+  /** @type {["os","arch","libc","vendor"]} */ //@ts-expect-error
   let keys = Object.keys(hints);
   for (let key of keys) {
     if (!target[key]) {
-      target[key] = hints[key];
+      if (hints[key]) {
+        //@ts-expect-error TODO
+        target[key] = hints[key];
+      }
     }
     if (target[key] !== hints[key]) {
       let msg = `'${key}' already set to '${target[key]}', not updated to '${hints[key]}'`;
@@ -222,11 +235,13 @@ function upsertHints(target, ua, terms, hints) {
           ignore = true;
         } else if (hints[key] === 'musl') {
           // musl can be installed on a GNU system
+          //@ts-expect-error - TODO find out if we depend on this libs vs libcs typo (we probably do)
           target.libs = [target.libc, 'musl'];
           ignore = true;
         }
       }
       if (!ignore) {
+        //@ts-expect-error
         target.errors.push({ [key]: hints[key], message: msg, terms: terms });
         throw new Error(`${msg} for '${ua}' / '${terms}'`);
       }
@@ -234,7 +249,16 @@ function upsertHints(target, ua, terms, hints) {
   }
 }
 
-// Workaround for current (2023-q4) Android misclassification
+/**
+ * @typedef HasErrors
+ * @prop {Array<any>} errors
+ */
+
+/**
+ * Workaround for current (2023-q4) Android misclassification
+ * @param {TargetTriplet & HasErrors} target
+ * @param {Array<String>} terms
+ */
 function upsertAndroidTerms(target, terms) {
   if (!target.android) {
     return;
@@ -268,3 +292,9 @@ function upsertAndroidTerms(target, terms) {
     }
   }
 }
+
+export let TERMS = HostTargets.TERMS;
+export let WATERFALL = HostTargets.WATERFALL;
+export let _MATCHERS = HostTargets._MATCHERS;
+export let termsToTarget = HostTargets.termsToTarget;
+export default HostTargets;

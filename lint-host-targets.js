@@ -1,22 +1,34 @@
-'use strict';
+import HostTargets from './host-targets.js';
 
-let HostTargets = require('./host-targets.js');
+import Fs from 'node:fs/promises';
+import Path from 'node:path';
 
-let uaMap = require('./uas.json');
-let uas = Object.keys(uaMap);
+/** @typedef {import('./types.js').TargetTriplet} TargetTriplet */
 
+/** @type {Object.<String, Number>} */
 let partialsMap = {};
+/** @type {Object.<String, Number>} */
 let termsMap = {};
 let termNames = Object.keys(HostTargets.TERMS);
 for (let term of termNames) {
   termsMap[term] = 0;
 }
 
-function main() {
+async function main() {
   //let hostTargets = HostTargets.create({});
+  /** @type {Object.<String, Boolean>} */
   let tripletsMap = {};
 
+  let modulePath = import.meta.url.slice('file://'.length);
+  let moduleDir = Path.dirname(modulePath);
+  let uasPath = Path.join(moduleDir, './uas.json');
+
+  let uaJson = await Fs.readFile(uasPath, 'utf8');
+  let uaMap = JSON.parse(uaJson);
+  let uas = Object.keys(uaMap);
+
   for (let ua of uas) {
+    /** @type {Array<String>} */
     let terms = [];
 
     let parts = ua.split(/\s+/g);
@@ -33,6 +45,7 @@ function main() {
       terms = terms.concat(_terms);
     }
 
+    /** @type {Partial<TargetTriplet>} */
     let target = {};
     let bogoTerms;
     try {
@@ -104,4 +117,7 @@ function main() {
   }
 }
 
-main();
+main().catch(function (e) {
+  console.error(e.stack);
+  process.exit(1);
+});
