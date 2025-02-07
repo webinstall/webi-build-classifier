@@ -1,6 +1,6 @@
 'use strict';
 
-let Lexver = require('./lexver.js');
+import Lexver from './lexver.js';
 
 async function main() {
   let matchVer = process.argv[2];
@@ -77,6 +77,7 @@ async function main() {
   let knownKeys = Object.keys(known);
 
   for (let key of knownKeys) {
+    //@ts-expect-error - ignore dynamic key errors in test
     if (selected[key].toString() !== known[key].toString()) {
       console.error('Expected:');
       console.error(known);

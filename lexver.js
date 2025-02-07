@@ -1,6 +1,4 @@
-'use strict';
-
-var Lexver = module.exports;
+let Lexver = {};
 
 // hotfix is post-stable
 let channels = ['alpha', 'beta', 'dev', 'pre', 'preview', 'rc', 'hotfix'];
@@ -12,6 +10,12 @@ let channelsRePost;
   channelsRePost = new RegExp(`(${channelsOr})([\\.\\-\\+]?)(\\d+)`);
 }
 let channelsPrePlacer = '$1-$2';
+/**
+ * @param {unknown} _
+ * @param {String} chan
+ * @param {String} sep
+ * @param {String} ver
+ */
 let channelsPostPlacer = function (_, chan, sep, ver) {
   ver = ver.padStart(2, '0');
 
@@ -23,6 +27,11 @@ let digitsOnlyRe = /^\d+$/;
 // this is a special case, but if it gets complicated in the future, we'll drop it
 // and just treat it like a build hash and open an issue for to the maintainer
 let channelsReB = /(\.\d+b)(\d+)$/;
+/**
+ * @param {unknown} _
+ * @param {String} sep
+ * @param {String} ver
+ */
 let channelsBPlacer = function (_, sep, ver) {
   ver = ver.padStart(2, '0');
   let rel = `${sep}${ver}`;
@@ -75,8 +84,8 @@ Lexver.sortedToTags = function (descVersions) {
 /**
  * Parse a semver or non-standard version and return a lexical version
  * Ex: 1.2beta-3 =>  0001.0002.0000.0000-beta-03
- * @param {String} version - a semver or other version
- * @param {Object} _opts - no public options
+ * @param {String} fullVersion - a semver or other version
+ * @param {Object} [_opts] - no public options
  * @param {Boolean} _opts._asPrefix - don't expand 1.0 to 1.0.0, etc
  * @returns {String}
  */
@@ -89,9 +98,11 @@ Lexver.parseVersion = function (fullVersion, _opts) {
   // 1.2beta1 => 1.2beta1
   let rels = fullVersion.split('-');
 
+  /** @type {String} */ //@ts-expect-error - even an empty string splits
   let version = rels.shift();
   if (version.includes('+')) {
     let parts = version.split('+');
+    /** @type {String} */ //@ts-expect-error - even an empty string splits
     version = parts.shift();
     let build = parts.join(`${sortSuffixBuild}`);
     rels.unshift(`${sortSuffixBuild}${build}`);
@@ -105,6 +116,7 @@ Lexver.parseVersion = function (fullVersion, _opts) {
 
   // 1.2-beta1-a => 1.2, beta1, a
   let subparts = version.split('-');
+  /** @type {String} */ //@ts-expect-error - even an empty string splits
   version = subparts.shift();
 
   // beta1, a => beta1-a
@@ -117,6 +129,7 @@ Lexver.parseVersion = function (fullVersion, _opts) {
   let levels = version.split('.');
   let digits = [];
   for (; levels.length; ) {
+    /** @type {String} */ //@ts-expect-error - even an empty string splits
     let level = levels.shift();
     if (!digitsOnlyRe.test(level)) {
       levels.unshift(level);
@@ -247,3 +260,10 @@ Lexver.matchSorted = function (versions, prefix) {
   };
   return matchInfo;
 };
+
+export let toTags = Lexver.toTags;
+export let sortedToTags = Lexver.sortedToTags;
+export let parseVersion = Lexver.parseVersion;
+export let parsePrefix = Lexver.parsePrefix;
+export let matchSorted = Lexver.matchSorted;
+export default Lexver;

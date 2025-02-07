@@ -2,17 +2,38 @@
   "name": "build-classifier",
   "version": "1.0.2",
   "description": "Determine Host Target Triplet (Arch, Libc, OS, Vendor) from a filenames / download URL and uname / User-Agent strings.",
-  "main": "index.js",
+  "main": "./build-classifier.js",
+  "files": [
+    "./*.js",
+    "./build-classifier.js",
+    "./bin/*.js",
+    "./lib/*.js"
+  ],
+  "type": "module",
+  "imports": {
+    "build-classifier": "./build-classifier.js",
+    "build-classifier/": "./"
+  },
+  "exports": {
+    ".": "./build-classifier.js",
+    "./*": "./*"
+  },
   "scripts": {
     "bump": "npm version -m \"chore(release): bump to v%s\"",
     "fmt": "npm run prettier",
-    "lint": "npm run jshint",
+    "lint": "npm run jshint && npm run tsc",
+    "prepublish": "npm run reexport-types",
     "test": "node lexver-test.js",
     "----": "------------------------------------",
     "jshint": "npx -p jshint@2.x -- jshint -c ./.jshintrc --exclude 'node_modules/**/*' *.js",
-    "prettier": "npx -p prettier@3.x -- prettier -w '**/*.{js,md,html}'"
+    "prettier": "npx -p prettier@3.x -- prettier -w '**/*.{js,md,html}'",
+    "reexport-types": "npx -p jswt@2.x -- reexport",
+    "tsc": "! npx -p typescript@5.x -- tsc -p ./jsconfig.json | grep '\\.js([0-9]\\+,[0-9]\\+): error' | grep -v '\\<node_modules/'"
   },
   "keywords": [],
   "author": "AJ ONeal <aj@therootcompany.com> (https://therootcompany.com/)",
-  "license": "SEE LICENSE IN LICENSE"
+  "license": "SEE LICENSE IN LICENSE",
+  "devDependencies": {
+    "@types/node": "^22.13.1"
+  }
 }

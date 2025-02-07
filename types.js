@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports._types = true;
+let types = {};
 
 /**
  * @typedef {""|"ANYOS"|"posix_2024"|"posix_2017"|"aix"|"android"|"darwin"|"dragonfly"|"freebsd"|"illumos"|"linux"|"netbsd"|"openbsd"|"plan9"|"solaris"|"sunos"|"wasi"|"windows"} OsString
@@ -19,11 +17,37 @@ module.exports._types = true;
  */
 
 /**
+ * @typedef TargetMatcher
+ * @prop {OsString} [os]
+ * @prop {VendorString} [vendor]
+ * @prop {ArchString} [arch]
+ * @prop {Array<ArchString>} [arches]
+ * @prop {LibcString} [libc]
+ * @prop {Array<LibcString>} [libcs]
+ * @prop {Boolean} [android]
+ */
+
+/**
+ * @typedef ErrorDetails
+ * @prop {String} message
+ * @prop {String} os
+ * @prop {String} arch
+ * @prop {String} libc
+ * @prop {String} vendor
+ * @prop {Array<String>} terms
+ */
+
+/**
  * @typedef TargetTriplet
  * @prop {OsString} os
  * @prop {ArchString} arch
  * @prop {LibcString} libc
  * @prop {VendorString} [vendor]
  * @prop {Array<String>} [unknownTerms]
+ * @prop {Array<LibcString>} [libcs]
+ * @prop {Array<ErrorDetails>} [errors]
  * @prop {Boolean} [android] - for intermediary representation
  */
+
+export let _types = types;
+export default types;
