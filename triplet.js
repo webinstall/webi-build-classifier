@@ -456,14 +456,21 @@ var Triplet = ('object' === typeof module && exports) || {};
       }
     }
 
+    // Check the filename, not the full URL. Some download URLs are API
+    // endpoints whose path tail looks like an extension match — e.g.
+    // `.../tarball/v1.0.1` ends with `.1` (a TERMS_EXTS_NON_BUILD entry
+    // intended for `manpage.1`), causing maybeInstallable to falsely
+    // reject any package version ending in `.1`. The filename itself is
+    // the canonical source for extension classification.
+    let filename = build.name || build.download;
     for (let ext of Triplet.TERMS_EXTS_NON_BUILD) {
-      if (build.download.endsWith(ext)) {
+      if (filename.endsWith(ext)) {
         return false;
       }
     }
 
     for (let re of Triplet._RE_TERMS_NON_BUILD) {
-      if (re.test(build.download)) {
+      if (re.test(filename)) {
         return false;
       }
     }
