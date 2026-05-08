@@ -126,7 +126,9 @@ Lexver.parseVersion = function (fullVersion, _opts) {
   }
 
   // 1, 0 => 1, 0, 0, 0
-  if (!_opts?._asPrefix) {
+  // Pad to 4 even for prefix parses when input has a release suffix —
+  // keeps parsePrefix(v) a true string-prefix of parseVersion(v).
+  if (!_opts?._asPrefix || rels.length) {
     for (; digits.length < 4; ) {
       digits.push('0');
     }
