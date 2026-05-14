@@ -26,6 +26,10 @@ HostTargets.WATERFALL = {
   windows: Object.assign(
     {
       aarch64: ['aarch64', 'x86_64'],
+      // Cygwin/MINGW report 'gnu' or 'libc'; prefer msvc packages first,
+      // then static ('none'), then the reported libc
+      gnu: ['msvc', 'none', 'gnu'],
+      libc: ['msvc', 'none', 'libc'],
     },
     X86_64,
   ),
@@ -78,8 +82,8 @@ HostTargets.TERMS = {
   // OS
   Android: T.ANDROID,
   Linux: T.LINUX,
-  MINGW: T.LINUX,
-  CYGWIN: T.LINUX,
+  MINGW: T.WINDOWS,
+  CYGWIN: T.WINDOWS,
   Darwin: T.DARWIN,
   Windows: T.WINDOWS,
   win32: { os: 'windows', vendor: 'unknown' },

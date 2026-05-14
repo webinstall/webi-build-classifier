@@ -2046,6 +2046,7 @@
   "curl Linux/5.15.131-1-pve x86_64/unknown gnu": 2,
   "webi/curl+wget x86_64/unknown GNU/Linux/5.10.0-8-amd64 libc": 1,
   "webi/curl+wget x86_64/unknown Cygwin/CYGWIN_NT-10.0-19045/3.4.10-1.x86_64 libc": 2,
+  "webi/curl+wget x86_64/unknown Cygwin/CYGWIN_NT-10.0-26200/3.4.10-1.x86_64 libc": 1,
   "webi/curl+wget x86_64/unknown GNU/Linux/3.10.0-1160.83.1.el7.x86_64 libc": 1,
   "webi/curl+wget x86_64/unknown GNU/Linux/5.4.250-2.1.ve1.x86_64 libc": 1,
   "curl Linux/5.4.250-2.1.ve1.x86_64 x86_64/unknown gnu": 1,
