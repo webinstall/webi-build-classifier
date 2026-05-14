@@ -26,10 +26,6 @@ HostTargets.WATERFALL = {
   windows: Object.assign(
     {
       aarch64: ['aarch64', 'x86_64'],
-      // Cygwin/MINGW report 'gnu' or 'libc'; prefer msvc packages first,
-      // then static ('none'), then the reported libc
-      gnu: ['msvc', 'none', 'gnu'],
-      libc: ['msvc', 'none', 'libc'],
     },
     X86_64,
   ),
