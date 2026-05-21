@@ -943,15 +943,15 @@ var Triplet = ('object' === typeof module && exports) || {};
       filenames.push(build.download);
     }
 
-    let pkg = '';
+    let pkgExt = '';
     for (let filename of filenames) {
-      pkg = Triplet.filenameToPackageType(filename);
-      if (pkg) {
+      pkgExt = Triplet.filenameToPackageType(filename);
+      if (pkgExt) {
         break;
       }
     }
 
-    return pkg;
+    return pkgExt;
   };
 
   /**
@@ -961,13 +961,13 @@ var Triplet = ('object' === typeof module && exports) || {};
    */
   Triplet.filenameToPackageType = function (filename) {
     let _filename = filename;
-    let pkg = '';
+    let pkgExt = '';
 
     // find and remove the zip extension
     for (let ext of Triplet.TERMS_EXTS_ZIP) {
       if (_filename.endsWith(ext)) {
         _filename = _filename.slice(0, -ext.length);
-        pkg = ext;
+        pkgExt = ext;
         break;
       }
     }
@@ -976,7 +976,7 @@ var Triplet = ('object' === typeof module && exports) || {};
     for (let ext of Triplet.TERMS_EXTS_PKG) {
       if (_filename.endsWith(ext)) {
         _filename = _filename.slice(0, -ext.length);
-        pkg = `${ext}${pkg}`;
+        pkgExt = `${ext}${pkgExt}`;
         break;
       }
     }
@@ -985,7 +985,7 @@ var Triplet = ('object' === typeof module && exports) || {};
     for (let ext of Triplet.TERMS_EXTS_PKG) {
       if (_filename.endsWith(ext)) {
         _filename = _filename.slice(0, -ext.length);
-        pkg = `${ext}${pkg}`;
+        pkgExt = `${ext}${pkgExt}`;
         break;
       }
     }
@@ -995,7 +995,7 @@ var Triplet = ('object' === typeof module && exports) || {};
         console.warn(`[Sanity Fail] max silliness of pkg type nesting:`);
         console.warn(`    ${filename}`);
         //_filename = _filename.slice(0, -ext.length);
-        pkg = `${ext}${pkg}`;
+        pkgExt = `${ext}${pkgExt}`;
         break;
       }
     }
@@ -1006,7 +1006,7 @@ var Triplet = ('object' === typeof module && exports) || {};
     //   - '.tar.gz'
     //   - '.exe.xz'
     //   - '' (linux/bsd binary)
-    return pkg;
+    return pkgExt;
   };
 
   // @ts-ignore
